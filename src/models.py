@@ -27,6 +27,44 @@ class Address(Base):
 
     def to_dict(self):
         return {}
+    
+class Starship(Base):
+    __tablename__='starship'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250))
+    model= Column(String(250))
+    cargo_capacity = Column(Integer)
+
+    def to_dict(self):
+        return{}
+
+class Planet(Base):
+    __tablename__='planet'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250))
+    rotation_period = Column(Integer)
+    diameter = Column(Integer)
+
+    def to_dict(self):
+        return{}
+
+class Character(Base):
+    __tablename__='character'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250))
+    height = Column(Integer)
+    homeworld = Column(Integer, ForeignKey('planet.id'))
+    vehicles = Column(Integer, ForeignKey('starship.id'))
+    starship = relationship(Starship)
+    planet = relationship(Planet)
+
+    def to_dict(self):
+        return{}
+    
+
+
+
+
 
 ## Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')
